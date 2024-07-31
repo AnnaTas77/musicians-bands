@@ -7,7 +7,7 @@ const sequelize = new Sequelize({
   storage: path.join(__dirname, "db.sqlite"),
 });
 
-db.authenticate();
+// sequelize.authenticate();
 
 module.exports = {
   sequelize,
