@@ -13,15 +13,12 @@ describe("Band, Musician, and Song Models", () => {
     await sequelize.sync({ force: true });
   });
 
-  describe("Testing the Band Model", () => {
+  describe("Testing the CREATE operation", () => {
     test("can create a Band", async () => {
       const testBand = await Band.create({ name: "AC/DC", genre: "rock" });
       expect(testBand.name).toBe("AC/DC");
       expect(testBand.genre).toBe("rock");
     });
-  });
-
-  describe("Testing the Musician Model", () => {
     test("can create a Musician", async () => {
       const testMusician = await Musician.create({
         name: "Stevie Young",
@@ -30,9 +27,7 @@ describe("Band, Musician, and Song Models", () => {
       expect(testMusician.name).toBe("Stevie Young");
       expect(testMusician.instrument).toBe("guitar");
     });
-  });
 
-  describe("Testing the Song Model", () => {
     test("can create a Song", async () => {
       const testSong = await Song.create({
         title: "Thunderstruck",
@@ -45,7 +40,7 @@ describe("Band, Musician, and Song Models", () => {
     });
   });
 
-  describe.only("Updating the models", () => {
+  describe("Testing the UPDATE operation", () => {
     test("can update a Musician", async () => {
       const testMusician = await Musician.create({
         name: "Stevie Young",
@@ -85,13 +80,15 @@ describe("Band, Musician, and Song Models", () => {
     });
   });
 
-  test("can delete a Band", async () => {
-    // TODO - test deleting a band
-    expect("NO TEST").toBe("EXPECTED VALUE HERE");
-  });
+  describe("Testing the DELETE operation", () => {
+    test("can delete a Band", async () => {
+      // TODO - test deleting a band
+      expect("NO TEST").toBe("EXPECTED VALUE HERE");
+    });
 
-  test("can delete a Musician", async () => {
-    // TODO - test deleting a musician
-    expect("NO TEST").toBe("EXPECTED VALUE HERE");
+    test("can delete a Musician", async () => {
+      // TODO - test deleting a musician
+      expect("NO TEST").toBe("EXPECTED VALUE HERE");
+    });
   });
 });
