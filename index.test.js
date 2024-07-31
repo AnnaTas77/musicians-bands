@@ -82,13 +82,53 @@ describe("Band, Musician, and Song Models", () => {
 
   describe("Testing the DELETE operation", () => {
     test("can delete a Band", async () => {
-      // TODO - test deleting a band
-      expect("NO TEST").toBe("EXPECTED VALUE HERE");
+      const testBand = await Band.create({ name: "AC/DC", genre: "rock" });
+
+      const deletedBand = await testBand.destroy({ where: { name: "AC/DC" } });
+      //   console.log(deletedBand.toJSON());
+
+      expect(deletedBand.toJSON()).toEqual(
+        expect.objectContaining({
+          name: "AC/DC",
+          genre: "rock",
+        })
+      );
     });
 
     test("can delete a Musician", async () => {
-      // TODO - test deleting a musician
-      expect("NO TEST").toBe("EXPECTED VALUE HERE");
+      const testMusician = await Musician.create({
+        name: "Stevie Young",
+        instrument: "guitar",
+      });
+
+      const deletedMusician = await testMusician.destroy({
+        where: { name: "Stevie Young" },
+      });
+      expect(deletedMusician.toJSON()).toEqual(
+        expect.objectContaining({
+          name: "Stevie Young",
+          instrument: "guitar",
+        })
+      );
+    });
+
+    test("can delete a Song", async () => {
+      const testSong = await Song.create({
+        title: "Thunderstruck",
+        year: 1990,
+        length: 5,
+      });
+
+      const deletedSong = await testSong.destroy({
+        where: { title: "Thunderstruck" },
+      });
+      expect(deletedSong.toJSON()).toEqual(
+        expect.objectContaining({
+          title: "Thunderstruck",
+          year: 1990,
+          length: 5,
+        })
+      );
     });
   });
 });
