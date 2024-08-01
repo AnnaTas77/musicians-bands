@@ -2,17 +2,17 @@ const { where } = require("sequelize");
 const { sequelize } = require("./db");
 const { Band, Musician, Song } = require("./index");
 
-describe("Band, Musician, and Song Models", () => {
-  /**
-   * Runs the code prior to all tests
-   */
-  beforeAll(async () => {
-    // the 'sync' method will create tables based on the model class
-    // by setting 'force:true' the tables are recreated each time the
-    // test suite is run
-    await sequelize.sync({ force: true });
-  });
+/**
+ * Runs the code prior to all tests
+ */
+beforeAll(async () => {
+  // the 'sync' method will create tables based on the model class
+  // by setting 'force:true' the tables are recreated each time the
+  // test suite is run
+  await sequelize.sync({ force: true });
+});
 
+describe("Band, Musician, and Song Models - DAY 1", () => {
   describe("Testing the CREATE operation", () => {
     test("can create a Band", async () => {
       const testBand = await Band.create({ name: "AC/DC", genre: "rock" });
@@ -130,5 +130,39 @@ describe("Band, Musician, and Song Models", () => {
         })
       );
     });
+  });
+});
+
+describe.only("One-to-Many Associations - DAY 2", () => {
+  test("Band and Musician should have a one-to-one association", async () => {
+    const testBand1 = await Band.create({ name: "AC/DC", genre: "rock" });
+    // const testBand2 = await Band.create({
+    //   name: "Rolling Stones",
+    //   genre: "rock",
+    // });
+
+    const allMusicians = await Musician.bulkCreate([
+      {
+        name: "Malcolm Young",
+        instrument: "guitar",
+      },
+      {
+        name: "Stevie Young",
+        instrument: "guitar",
+      },
+    ]);
+    // console.log("All Musicians: ", allMusicians);
+
+    await testBand1.setMusicians(allMusicians);
+
+    // const bandWithMusicians = await Band.findOne({
+    //   where: { name: "AC/DC" },
+    //   include: Musician,
+    // });
+
+    const foundMusicians = await testBand1.getMusicians();
+    // console.log(JSON.stringify(foundMusicians, null, 2));
+
+    expect(foundMusicians.length).toBe(2);
   });
 });
