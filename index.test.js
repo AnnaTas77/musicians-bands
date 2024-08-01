@@ -161,8 +161,10 @@ describe.only("One-to-Many Associations - DAY 2", () => {
     // });
 
     const foundMusicians = await testBand1.getMusicians();
-    // console.log(JSON.stringify(foundMusicians, null, 2));
+    console.log(JSON.stringify(foundMusicians, null, 2));
 
     expect(foundMusicians.length).toBe(2);
+    expect(foundMusicians[0].name).toBe('Malcolm Young')
+    expect(foundMusicians[1].name).toBe('Stevie Young')
   });
 });
